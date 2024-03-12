@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "MatchSportView is an interactive platform for visualizing game data and sports results. This repository contains a interface with statistical analyses for a wide range of sporting events. From live score tracking to historical analysis of player statistics, MatchSportView provides a comprehensive and engaging view of the world of sports.",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --env-file=../.env ./src/index.js"
+  },
+  "author": "Igor Lima",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.18.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
