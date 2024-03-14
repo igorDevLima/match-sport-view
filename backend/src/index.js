@@ -22,4 +22,15 @@ const connectToDatabase = async () => {
 
 const startServer = () => {
     app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));
-};
+const initializeApp = async () => {
+    try {
+        await connectToDatabase();
+        startServer();
+    }
+    catch (err) {
+        console.error("Error initializing the application:", err.message)
+        process.exit(1);
+    }
+}
+
+initializeApp();
