@@ -1,7 +1,21 @@
-const express = require('express');
+const mongoose = require("mongoose");
 
 const port = process.env.PORT || 8081
 
 const app = express();
 
-app.listen(port, () => console.log(`Running on http://localhost:${port}`))
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+
+const connectToDatabase = async () => {
+    try {
+        await mongoose.connect(
+            `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.ukpj5ch.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+        );
+
+        console.log("Connected to database!");
+    } catch (err) {
+        console.error("Error connecting to database:", err.message);
+        process.exit(1);
+    }
+};
