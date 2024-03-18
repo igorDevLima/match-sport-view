@@ -45,6 +45,23 @@ class AuthController {
             return res.status(500).json({ error: "A server error occurred! Try again later", err });
         }
     }
+
+    async show(req, res) {
+        const authorizationHeader = await req.headers['authorization'];
+        const authToken = authorizationHeader && await authorizationHeader.split(" ")[1];
+
+        try {
+            const userToken = await AuthRepository.findAuthorizationToken(authToken);
+            
+            const userData = await UserRepository.find(userToken.user_id);
+
+            return res.status(200).json({ message: "Token signed successfully", userData })
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ error: "A server error occurred! Try again later", err });
+        }
+    }
+
     async store(req, res) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
