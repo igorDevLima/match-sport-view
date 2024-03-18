@@ -12,6 +12,8 @@ const userValidator = [
     body('password', 'The minimum password length is 20 characters').isLength({ min: 6 }),
 ]
 
+router.get("/auth/login", userValidator, (req, res) => AuthController.index(req, res))
+
 router.post("/auth/register", userValidator, (req, res) => AuthController.store(req, res));
 
 router.get("/auth/me", verifyToken, (req, res) => AuthController.show(req, res))
