@@ -7,6 +7,6 @@ const app = express();
 
 app.use(express.json());
 
-app.use(authRouter, userRouter,LeagueRouter);
+app.use(authRouter, userRouter, LeagueRouter);
 
 export default app;
