@@ -1,7 +1,6 @@
 import express from "express"
 import AuthController from "../controllers/AuthController.js";
 import { body } from "express-validator";
-import { verifyToken } from "../middlewares/middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -16,6 +15,6 @@ router.get("/auth/login", userValidator, (req, res) => AuthController.index(req,
 
 router.post("/auth/register", userValidator, (req, res) => AuthController.store(req, res));
 
-router.get("/auth/me", verifyToken, (req, res) => AuthController.show(req, res))
+router.get("/auth/me", (req, res) => AuthController.show(req, res));
 
 export default router;
