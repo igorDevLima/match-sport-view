@@ -11,6 +11,7 @@
   "author": "Igor Lima",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "express": "^4.18.3",
     "express-validator": "^7.0.1",
