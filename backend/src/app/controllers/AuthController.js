@@ -83,9 +83,14 @@ class AuthController {
 
             if (userExists) { return res.status(422).json({ error: "User already exists" }) }
 
-            const newUser = await AuthRepository.create(req.body);
+            const newUser = await AuthRepository.createUser(bodyUserNameAndEmail);
 
-            return res.status(201).json({ message: "User created successfully!", user: newUser });
+            return res.status(201).json({
+                message: "User created successfully!", user: {
+                    username: newUser.username,
+                    email: newUser.email
+                }
+            });
         } catch (err) {
             console.error(err);
             return res.status(500).json({ error: "A server error occurred! Try again later", err });
