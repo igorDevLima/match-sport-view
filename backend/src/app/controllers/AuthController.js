@@ -1,8 +1,11 @@
 import { validationResult } from "express-validator";
 import AuthRepository from "../repositories/AuthRepository.js";
+import UserRepository from "../repositories/UserRepository.js";
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
 class AuthController {
+
     async index(req, res) {
         const errors = validationResult(req);
 
