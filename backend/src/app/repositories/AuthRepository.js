@@ -1,17 +1,21 @@
 import { Token } from "../models/Token.js";
+import { User } from "../models/User.js";
 
 class AuthRepository {
-    
-    create(user) {
-        try {
-            const newUser = {
-                username: user.username,
-                email: user.email,
-                password: user.password
-            }
 
-            const response = new User(newUser).save();
+    createUser(user) {
 
+        const newUser = {
+            username: user.username,
+            email: user.email,
+            password: user.password
+        }
+
+        const response = new User(newUser).save();
+
+        return response;
+
+    }
 
     createToken(data) {
 
