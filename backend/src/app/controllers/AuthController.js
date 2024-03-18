@@ -4,12 +4,10 @@ import bcrypt from "bcrypt"
 
 class AuthController {
 
-    // index() {
-
-    // }
-    // show() {
-
-    // }
+            await AuthRepository.createToken({
+                user_id: userExists._id,
+                token: token
+            })
     async store(req, res) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

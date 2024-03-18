@@ -1,4 +1,4 @@
-import { User } from "../../../models/User.js"
+import { Token } from "../models/Token.js";
 
 class AuthRepository {
     
@@ -12,20 +12,24 @@ class AuthRepository {
 
             const response = new User(newUser).save();
 
-            return response;
-        } catch (err) {
-            console.log(err);
-        }
+
+    createToken(data) {
+
+        const addUserToken = new Token({
+            user_id: data.user_id,
+            token: data.token
+        }).save();
+
+        return addUserToken;
     }
 
     findByUserNameOrEmail(data) {
         return User.findOne({ $or: [{ username: data.username }, { email: data.email }] });
     }
 
-    // find() { }
-    // findAll() { }
-    // update() { }
-    // delete() { }
+    findAuthorizationToken(token) {
+        return Token.findOne({ token: token })
+    }
 
 }
 
