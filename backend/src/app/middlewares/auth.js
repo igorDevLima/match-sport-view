@@ -1,5 +1,4 @@
-import jwt from "jsonwebtoken";
-import AuthRepository from "../../repositories/AuthRepository.js";
+import AuthRepository from "../repositories/AuthRepository.js";
 
 const authMiddleware = async (req, res, next) => {
   try {
