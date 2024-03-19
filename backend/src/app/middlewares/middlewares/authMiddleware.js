@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import AuthRepository from "../../repositories/AuthRepository.js";
 
 const authMiddleware = async (req, res, next) => {
   try {
@@ -8,15 +9,17 @@ const authMiddleware = async (req, res, next) => {
 
     if (!token)
       return res.status(401).json({ error: "Access Denied! Send a token" });
-    const secret = process.env.SECRET;
 
-    const decodedToken = jwt.verify(token, secret);
+    const tokenExists = await AuthRepository.findAuthorizationToken(token);;
 
-    console.log(decodedToken);
+    if (!tokenExists)
+      return res.status(401).json({ error: "Access Denied! Invalid token" });
 
     next();
   } catch (err) {
-    console.log(err);
-    res.status(401).json({ error: "Access Denied! invalid token" });
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export default authMiddleware;
