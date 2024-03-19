@@ -1,28 +1,21 @@
+import { NotFoundError } from "../helpers/api-errors.js";
 import UserRepository from "../repositories/UserRepository.js";
 
 class UserController {
   async index(req, res) {
-    try {
-      const allUsers = await UserRepository.findAll();
+    const allUsers = await UserRepository.findAll();
 
-      return res.status(200).json({ message: "All users found", allUsers });
-    } catch (err) {
-      console.error(err);
-      return res.status(404).json({ error: err });
-    }
+    if (!allUsers) throw new NotFoundError("Users not found!");
+
+    return res.status(200).json({ message: "All users found", allUsers });
   }
 
   async show(req, res) {
-    try {
-      const user = await UserRepository.find(req.params.id);
+    const user = await UserRepository.find(req.params.id);
 
-      if (!user) return res.status(404).json({ message: "User not found!" });
+    if (!user) throw new NotFoundError("User not found!");
 
-      return res.status(200).json({ message: "User found", user });
-    } catch (err) {
-      console.log(err);
-      return res.status(404).json({ error: err });
-    }
+    return res.status(200).json({ message: "User found", user });
   }
 }
 
