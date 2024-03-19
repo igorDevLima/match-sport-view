@@ -8,4 +8,8 @@ router.get("/league", authMiddleware, (req, res) =>
   LeagueController.index(req, res)
 );
 
+router.get("/league/:id", authMiddleware, (req, res) =>
+  LeagueController.show(req, res)
+);
+
 export default router;
