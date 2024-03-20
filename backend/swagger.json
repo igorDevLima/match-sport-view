@@ -1,0 +1,696 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Match Sport View - API",
+        "description": "API providing user authentication and comprehensive sports data management, including live scores, player statistics, team information, and historical data.",
+        "contact": {
+            "name": "Api support",
+            "email": "igorlimadeveloper@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/auth/me": {
+            "get": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "description": "Return user ",
+                "summary": "Verify if a token is associated with a user.",
+                "responses": {
+                    "200": {
+                        "description": "A user data.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "description": "Return recent registered user data.",
+                "summary": "Register a new user.",
+                "requestBody": {
+                    "description": "Important fields to create a new user in database.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A user data.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "description": "Return a JWT token.",
+                "summary": "Create a new JWT token associated a user.",
+                "requestBody": {
+                    "description": "Important fields to create a new JWT token",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A user data.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "description": "Return all registered users.",
+                "summary": "Show all registered users.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Users data returned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AllUsersResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Users data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Users not found!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorServerModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "description": "Return all registered users.",
+                "summary": "Show all registered users.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ObjectId for find a specific user",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Users data returned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AllUsersResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Param id is not a valid ObjectId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid objectId!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "User not found!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorServerModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/league": {
+            "get": {
+                "description": "Return all leagues.",
+                "summary": "Show all leagues.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "League"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Leagues data returned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AllLeaguesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Leagues data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Leagues not found!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorServerModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/league/{id}": {
+            "get": {
+                "description": "Return a specific league",
+                "summary": "Show a specific league with id",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "League"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "id for find a specific league",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "League data returned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LeagueIdResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "League not found!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "League not found!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorServerModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RequestUser": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "description": "Set the username of the user",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "Set the email of the user",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "Set the password of the user",
+                        "type": "string"
+                    }
+                }
+            },
+            "UserObject": {
+                "minItems": 1,
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string",
+                        "example": "65f8df6bfe544c7cc70c10d1"
+                    },
+                    "username": {
+                        "type": "string",
+                        "example": "Neymar Júnior"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "example123@gmail.com"
+                    },
+                    "__v": {
+                        "type": "number",
+                        "example": 0
+                    }
+                }
+            },
+            "LeagueObject": {
+                "type": "object",
+                "properties": {
+                    "league": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "number",
+                                "example": 4
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Euro Championship"
+                            },
+                            "type": {
+                                "type": "string",
+                                "example": "Cup"
+                            },
+                            "logo": {
+                                "type": "string",
+                                "example": "https://media.api-sports.io/football/leagues/4.png"
+                            }
+                        }
+                    },
+                    "country": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "World"
+                            },
+                            "code": {
+                                "type": "string",
+                                "example": null
+                            },
+                            "flag": {
+                                "type": "string",
+                                "example": null
+                            }
+                        }
+                    },
+                    "seasons": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "year": {
+                                    "type": "number",
+                                    "example": 2008
+                                },
+                                "start": {
+                                    "type": "string",
+                                    "example": "2008-06-07"
+                                },
+                                "end": {
+                                    "type": "string",
+                                    "example": "2008-06-29"
+                                },
+                                "current": {
+                                    "type": "boolean",
+                                    "example": false
+                                },
+                                "coverage": {
+                                    "type": "object",
+                                    "properties": {
+                                        "fixtures": {
+                                            "type": "object",
+                                            "properties": {
+                                                "events": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "lineups": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "statistics_fixtures": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "statistics_players": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                }
+                                            }
+                                        },
+                                        "standings": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "players": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "top_scorers": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "top_assists": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "top_cards": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "injuries": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "predictions": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "odds": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "LeagueIdObject": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number",
+                        "example": 4
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Euro Championship"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "Cup"
+                    },
+                    "logo": {
+                        "type": "string",
+                        "example": "https://media.api-sports.io/football/leagues/4.png"
+                    },
+                    "country": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "example": "World"
+                            },
+                            "code": {
+                                "type": "string",
+                                "example": null
+                            },
+                            "flag": {
+                                "type": "string",
+                                "example": null
+                            }
+                        }
+                    },
+                    "seasons": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "year": {
+                                    "type": "number",
+                                    "example": 2008
+                                },
+                                "start": {
+                                    "type": "string",
+                                    "example": "2008-06-07"
+                                },
+                                "end": {
+                                    "type": "string",
+                                    "example": "2008-06-29"
+                                },
+                                "current": {
+                                    "type": "boolean",
+                                    "example": false
+                                },
+                                "coverage": {
+                                    "type": "object",
+                                    "properties": {
+                                        "fixtures": {
+                                            "type": "object",
+                                            "properties": {
+                                                "events": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "lineups": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "statistics_fixtures": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "statistics_players": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                }
+                                            }
+                                        },
+                                        "standings": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "players": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "top_scorers": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "top_assists": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "top_cards": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "injuries": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "predictions": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "odds": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "AllUsersResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "All users found"
+                    },
+                    "allUsers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserObject"
+                        }
+                    }
+                }
+            },
+            "AllLeaguesResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "All leagues found!"
+                    },
+                    "results": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "allLeagues": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LeagueObject"
+                        }
+                    }
+                }
+            },
+            "LeagueIdResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "League found!"
+                    },
+                    "league": {
+                        "type": "object"
+                    }
+                }
+            },
+            "ErrorServerModel": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "example": "A Internal server error occurred! Try again later"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
