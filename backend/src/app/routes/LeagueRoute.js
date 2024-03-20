@@ -1,5 +1,5 @@
 import express from "express";
-import authMiddleware from "../middlewares/middlewares/authMiddleware.js";
+import authMiddleware from "../middlewares/auth.js";
 import LeagueController from "../controllers/LeagueController.js";
 
 const router = express.Router();
