@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class LeagueRepository {
+class FootballLeagueRepository {
   async find(leagueId) {
     const apiKey = process.env.SPORT_API_SECRET;
 
@@ -35,4 +35,4 @@ class LeagueRepository {
   }
 }
 
-export default new LeagueRepository();
+export default new FootballLeagueRepository();

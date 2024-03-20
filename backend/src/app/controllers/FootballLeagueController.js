@@ -1,9 +1,9 @@
 import { NotFoundError } from "../helpers/api-errors.js";
-import LeagueRepository from "../repositories/LeagueRepository.js";
+import FootballLeagueRepository from "../repositories/FootballLeagueRepository.js";
 
-class LeagueController {
+class FootballLeagueController {
   async index(req, res) {
-    const allLeagues = await LeagueRepository.findAll();
+    const allLeagues = await FootballLeagueRepository.findAll();
 
     if (allLeagues.results === 0) throw new NotFoundError("Leagues not found!");
 
@@ -15,7 +15,7 @@ class LeagueController {
   }
 
   async show(req, res) {
-    const league = await LeagueRepository.find(req.params.id);
+    const league = await FootballLeagueRepository.find(req.params.id);
 
     if (!league) throw new NotFoundError("League not found!");
 
@@ -30,4 +30,4 @@ class LeagueController {
   }
 }
 
-export default new LeagueController();
+export default new FootballLeagueController();

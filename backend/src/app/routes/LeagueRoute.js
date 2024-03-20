@@ -1,15 +1,15 @@
 import express from "express";
 import authMiddleware from "../middlewares/auth.js";
-import LeagueController from "../controllers/LeagueController.js";
+import FootballLeagueController from "../controllers/FootballLeagueController.js";
 
 const router = express.Router();
 
-router.get("/league", authMiddleware, (req, res) =>
-  LeagueController.index(req, res)
+router.get("/football/league", authMiddleware, (req, res) =>
+  FootballLeagueController.index(req, res)
 );
 
-router.get("/league/:id", authMiddleware, (req, res) =>
-  LeagueController.show(req, res)
+router.get("/football/league/:id", authMiddleware, (req, res) =>
+  FootballLeagueController.show(req, res)
 );
 
 export default router;
