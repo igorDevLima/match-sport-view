@@ -1,5 +1,6 @@
-import { NotFoundError } from "../helpers/api-errors.js";
+import { BadRequestError, NotFoundError } from "../helpers/api-errors.js";
 import UserRepository from "../repositories/UserRepository.js";
+import { isValidObjectId } from "mongoose";
 
 class UserController {
   async index(req, res) {
@@ -11,6 +12,9 @@ class UserController {
   }
 
   async show(req, res) {
+    if (!isValidObjectId(req.params.id))
+      throw new BadRequestError("Invalid objectId!");
+
     const user = await UserRepository.find(req.params.id);
 
     if (!user) throw new NotFoundError("User not found!");
