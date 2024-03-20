@@ -15,7 +15,7 @@ class LeagueRepository {
       }
     );
 
-    return league.data;
+    return league.data.response[0];
   }
 
   async findAll() {
