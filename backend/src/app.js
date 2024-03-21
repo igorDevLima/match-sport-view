@@ -7,6 +7,7 @@ import swaggerDocument from "../swagger.json" assert { type: "json" };
 import authRouter from "./app/routes/AuthRoute.js";
 import userRouter from "./app/routes/UserRoute.js";
 import leagueRouter from "./app/routes/LeagueRoute.js";
+import teamRouter from "./app/routes/TeamRoute.js";
 
 //middlewares
 import errorMiddleware from "./app/middlewares/error.js";
@@ -17,7 +18,7 @@ app.use(express.json());
 
 app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-app.use(authRouter, userRouter, leagueRouter);
+app.use(authRouter, userRouter, leagueRouter, teamRouter);
 
 app.use(errorMiddleware);
 

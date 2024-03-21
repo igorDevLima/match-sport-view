@@ -229,7 +229,7 @@
                 }
             }
         },
-        "/league": {
+        "/football/league": {
             "get": {
                 "description": "Return all leagues.",
                 "summary": "Show all leagues.",
@@ -239,7 +239,7 @@
                     }
                 ],
                 "tags": [
-                    "League"
+                    "Football"
                 ],
                 "responses": {
                     "200": {
@@ -281,7 +281,7 @@
                 }
             }
         },
-        "/league/{id}": {
+        "/football/league/{id}": {
             "get": {
                 "description": "Return a specific league",
                 "summary": "Show a specific league with id",
@@ -291,7 +291,7 @@
                     }
                 ],
                 "tags": [
-                    "League"
+                    "Football"
                 ],
                 "parameters": [
                     {
@@ -323,6 +323,100 @@
                                         "error": {
                                             "type": "string",
                                             "example": "League not found!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorServerModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/football/team": {
+            "get": {
+                "description": "Returns teams that meet the parameters .",
+                "summary": "Show teams.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Football"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "team id for find a specific team",
+                        "type": "string"
+                    },
+                    {
+                        "name": "league",
+                        "in": "query",
+                        "description": "League for find a specific team(Needs to be specified a season year)",
+                        "type": "string"
+                    },
+                    {
+                        "name": "season",
+                        "in": "query",
+                        "description": "Season year (YYYY) for find a specific team(Needs to be specified a football league)",
+                        "type": "string"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "To search with team name or country name",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All teams found!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AllLeaguesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "When no parameters are sent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "At least one parameter is required"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Teams data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Teams not found!"
                                         }
                                     }
                                 }
