@@ -386,7 +386,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/AllLeaguesResponse"
+                                    "$ref": "#/components/schemas/AllTeamsResponse"
                                 }
                             }
                         }
@@ -603,6 +603,77 @@
                     }
                 }
             },
+            "TeamObject": {
+                "type": "object",
+                "properties": {
+                    "team": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "number",
+                                "example": 6
+                            },
+                            "name": {
+                                "type": "string",
+                                "exaple": "Brazil"
+                            },
+                            "code": {
+                                "type": "string",
+                                "example": "BRA"
+                            },
+                            "country": {
+                                "type": "string",
+                                "example": "Brazil"
+                            },
+                            "founded": {
+                                "type": "number",
+                                "example": 1914
+                            },
+                            "national": {
+                                "type": "boolean",
+                                "example": true
+                            },
+                            "logo": {
+                                "type": "string",
+                                "example": "https://media.api-sports.io/football/teams/6.png"
+                            }
+                        }
+                    },
+                    "venue": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "number",
+                                "example": 204
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Estadio Jornalista Mário Filho (Maracanã)"
+                            },
+                            "address": {
+                                "type": "string",
+                                "example": "Rua Professor Eurico Rabelo, Maracanã"
+                            },
+                            "city": {
+                                "type": "string",
+                                "example": "Rio de Janeiro, Rio de Janeiro"
+                            },
+                            "capacity": {
+                                "type": "number",
+                                "example": 78838
+                            },
+                            "surface": {
+                                "type": "string",
+                                "example": "grass"
+                            },
+                            "image": {
+                                "type": "string",
+                                "example": "https://media.api-sports.io/football/venues/204.png"
+                            }
+                        }
+                    }
+                }
+            },
             "LeagueIdObject": {
                 "type": "object",
                 "properties": {
@@ -766,6 +837,25 @@
                     },
                     "league": {
                         "type": "object"
+                    }
+                }
+            },
+            "AllTeamsResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "All teams found!"
+                    },
+                    "results": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "allTeams": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TeamObject"
+                        }
                     }
                 }
             },
