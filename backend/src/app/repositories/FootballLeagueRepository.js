@@ -1,35 +1,26 @@
 import axios from "axios";
+import { FootballApiSports } from "../helpers/api-sports.js";
 
-class FootballLeagueRepository {
+class FootballLeagueRepository extends FootballApiSports {
   async find(leagueId) {
-    const apiKey = process.env.SPORT_API_SECRET;
-
-    const league = await axios.get(
-      "https://v3.football.api-sports.io/leagues" ,
-      {
-        params:{id:leagueId},
-        headers: {
-          "x-rapidapi-host": "v3.football.api-sports.io",
-          "x-rapidapi-key": apiKey,
-        },
-      }
-    );
+    const league = await axios.get(this.baseUrl + "/leagues", {
+      params: { id: leagueId },
+      headers: {
+        "x-rapidapi-host": this.baseUrl,
+        "x-rapidapi-key": this.apiKey,
+      },
+    });
 
     return league.data.response[0];
   }
 
   async findAll() {
-    const apiKey = process.env.SPORT_API_SECRET;
-
-    const leagues = await axios.get(
-      "https://v3.football.api-sports.io/leagues",
-      {
-        headers: {
-          "x-rapidapi-host": "v3.football.api-sports.io",
-          "x-rapidapi-key": apiKey,
-        },
-      }
-    );
+    const leagues = await axios.get(this.baseUrl + "/leagues", {
+      headers: {
+        "x-rapidapi-host": this.xRapidHost,
+        "x-rapidapi-key": this.apiKey,
+      },
+    });
 
     return leagues.data;
   }
