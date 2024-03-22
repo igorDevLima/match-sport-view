@@ -15,7 +15,6 @@ router.get(
   "/user/:id",
   [
     authMiddleware,
-    validateParamsRequest(idParamValidateSchema),
     validateMongoObjectId,
   ],
   (req, res) => UserController.show(req, res)
@@ -25,7 +24,6 @@ router.post(
   "/user/:id/favorite-team",
   [
     authMiddleware,
-    validateParamsRequest(idParamValidateSchema),
     validateMongoObjectId,
   ],
   (req, res) => UserController.addFavoriteTeams(req, res)
