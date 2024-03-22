@@ -23,10 +23,8 @@ class AuthRepository {
     return addUserToken;
   }
 
-  findByUserNameOrEmail(data) {
-    return User.findOne({
-      $or: [{ username: data.username }, { email: data.email }],
-    });
+  findByEmail(email) {
+    return User.findOne({ email: email });
   }
 
   findAuthorizationToken(token) {

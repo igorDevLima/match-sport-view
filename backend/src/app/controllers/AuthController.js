@@ -1,29 +1,18 @@
-import { validationResult } from "express-validator";
 import AuthRepository from "../repositories/AuthRepository.js";
 import UserRepository from "../repositories/UserRepository.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import {
-  BadRequestError,
-  ConflictError,
-} from "../helpers/api-errors.js";
+import { BadRequestError, ConflictError } from "../helpers/api-errors.js";
 
 class AuthController {
   async index(req, res) {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-
     const bodyUserNameAndEmail = {
-      username: req.body.username,
       email: req.body.email,
       password: req.body.password,
     };
 
-    const userExists = await AuthRepository.findByUserNameOrEmail(
-      bodyUserNameAndEmail
+    const userExists = await AuthRepository.findByEmail(
+      bodyUserNameAndEmail.email
     );
 
     if (!userExists) {
@@ -59,11 +48,9 @@ class AuthController {
   }
 
   async show(req, res) {
-    const authorizationHeader = await req.headers["authorization"];
-    const authToken =
-      authorizationHeader && (await authorizationHeader.split(" ")[1]);
+    const { token } = await req.body;
 
-    const userToken = await AuthRepository.findAuthorizationToken(authToken);
+    const userToken = await AuthRepository.findAuthorizationToken(token);
 
     if (!userToken) throw new BadRequestError("Token not found!");
 
@@ -75,11 +62,6 @@ class AuthController {
   }
 
   async store(req, res) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-
     const salt = await bcrypt.genSalt(12);
     const passwordHash = await bcrypt.hash(req.body.password, salt);
 

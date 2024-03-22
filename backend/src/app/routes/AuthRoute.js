@@ -1,30 +1,28 @@
 import express from "express";
 import AuthController from "../controllers/AuthController.js";
-import { body } from "express-validator";
+import { validateBodyRequest } from "../middlewares/validateRequest.js";
+import {
+  loginValidateSchema,
+  registerValidateSchema,
+  tokenValidateSchema,
+} from "../validateSchemas.js";
 
 const router = express.Router();
 
-const userValidator = [
-  body(["username", "email", "password"], "Invalid does not Empty")
-    .not()
-    .isEmpty(),
-  body("username", "The max username length is 20 characters").isLength({
-    max: 20,
-  }),
-  body("email", "Invalid email").isEmail(),
-  body("password", "The minimum password length is 20 characters").isLength({
-    min: 6,
-  }),
-];
-
-router.get("/auth/login", userValidator, (req, res) =>
-  AuthController.index(req, res)
+router.get(
+  "/auth/login",
+  validateBodyRequest(loginValidateSchema),
+  (req, res) => AuthController.index(req, res)
 );
 
-router.post("/auth/register", userValidator, (req, res) =>
-  AuthController.store(req, res)
+router.post(
+  "/auth/register",
+  validateBodyRequest(registerValidateSchema),
+  (req, res) => AuthController.store(req, res)
 );
 
-router.get("/auth/me", (req, res) => AuthController.show(req, res));
+router.get("/auth/me", validateBodyRequest(tokenValidateSchema), (req, res) =>
+  AuthController.show(req, res)
+);
 
 export default router;
