@@ -30,7 +30,7 @@ class AuthController {
       throw new BadRequestError("User don't exist!");
     }
 
-    const comparePassword = bcrypt.compare(
+    const comparePassword = await bcrypt.compare(
       req.body.password,
       userExists.password
     );
