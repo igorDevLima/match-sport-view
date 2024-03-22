@@ -3,6 +3,7 @@ import UserController from "../controllers/UserController.js";
 import authMiddleware from "../middlewares/auth.js";
 import { validateParamsRequest } from "../middlewares/validateRequest.js";
 import { idParamValidateSchema } from "../validateSchemas.js";
+import { validateMongoObjectId } from "../middlewares/validateMongoObjectId.js";
 
 const router = express.Router();
 
@@ -12,13 +13,21 @@ router.get("/user", authMiddleware, (req, res) =>
 
 router.get(
   "/user/:id",
-  [authMiddleware, validateParamsRequest(idParamValidateSchema)],
+  [
+    authMiddleware,
+    validateParamsRequest(idParamValidateSchema),
+    validateMongoObjectId,
+  ],
   (req, res) => UserController.show(req, res)
 );
 
 router.post(
   "/user/:id/favorite-team",
-  [authMiddleware, validateParamsRequest(idParamValidateSchema)],
+  [
+    authMiddleware,
+    validateParamsRequest(idParamValidateSchema),
+    validateMongoObjectId,
+  ],
   (req, res) => UserController.addFavoriteTeams(req, res)
 );
 

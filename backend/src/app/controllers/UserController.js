@@ -1,6 +1,5 @@
 import { BadRequestError, NotFoundError } from "../helpers/api-errors.js";
 import UserRepository from "../repositories/UserRepository.js";
-import { isValidObjectId } from "mongoose";
 import FootballTeamRepository from "../repositories/FootballTeamRepository.js";
 
 class UserController {
@@ -13,9 +12,6 @@ class UserController {
   }
 
   async show(req, res) {
-    if (!isValidObjectId(req.params.id))
-      throw new BadRequestError("Invalid objectId!");
-
     const user = await UserRepository.find(req.params.id);
 
     if (!user) throw new NotFoundError("User not found!");
@@ -26,9 +22,6 @@ class UserController {
   async addFavoriteTeams(req, res) {
     const { id: userId } = req.params;
     const { team_id } = req.body;
-
-    if (!isValidObjectId(userId))
-      throw new BadRequestError("Invalid objectId!");
 
     const userExist = await UserRepository.find(userId);
 
