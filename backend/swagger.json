@@ -434,7 +434,7 @@
                         "type": "string"
                     },
                     {
-                        "name": "league",
+                        "name": "leagueId",
                         "in": "query",
                         "description": "League for find a specific team(Needs to be specified a season year)",
                         "type": "string"

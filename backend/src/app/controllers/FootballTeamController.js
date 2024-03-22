@@ -3,22 +3,22 @@ import FootballTeamRepository from "../repositories/FootballTeamRepository.js";
 
 class FootballTeamController {
   async index(req, res) {
-    const { id, league, season, search } = req.query;
+    const { id, leagueId, season, search } = req.query;
 
-    if (!id && !league && !search)
+    if (!id && !leagueId && !search)
       throw new BadRequestError("At least one parameter is required");
 
-    if (league && !season)
+    if (leagueId && !season)
       throw new BadRequestError("The Season field is required");
 
-    if (!league && season)
+    if (!leagueId && season)
       throw new BadRequestError("The League field is required");
 
     let parameters = {};
 
     if (id) parameters.id = id;
 
-    if (league) parameters.league = league;
+    if (leagueId) parameters.league = league;
 
     if (season) parameters.season = season;
 
