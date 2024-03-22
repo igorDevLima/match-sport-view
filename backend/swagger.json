@@ -229,6 +229,78 @@
                 }
             }
         },
+        "user/{id}/favorite-team": {
+            "post": {
+                "description": "Return info with favorite team add or no",
+                "summary": "add a favorite team associated a one user.",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ObjectId for add favorite team a specific user",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Team_id  field to add a new favorite team",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestFavoriteTeam"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Favorite team post info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FavoriteTeamResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Param id is not a valid ObjectId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid objectId!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorServerModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/football/league": {
             "get": {
                 "description": "Return all leagues.",
@@ -453,6 +525,41 @@
                     "password": {
                         "description": "Set the password of the user",
                         "type": "string"
+                    }
+                }
+            },
+            "RequestFavoriteTeam": {
+                "type": "object",
+                "properties": {
+                    "team_id": {
+                        "description": "Set the team_id",
+                        "type": "string",
+                        "example": "33"
+                    }
+                }
+            },
+            "UpdateObject": {
+                "type": "object",
+                "properties": {
+                    "acknowledged": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "modifiedCount": {
+                        "type": "number",
+                        "example": 0
+                    },
+                    "upsertedId": {
+                        "type": "number",
+                        "example": null
+                    },
+                    "upsertedCount": {
+                        "type": "number",
+                        "example": 0
+                    },
+                    "matchedCount": {
+                        "type": "number",
+                        "example": 0
                     }
                 }
             },
@@ -824,6 +931,21 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/LeagueObject"
+                        }
+                    }
+                }
+            },
+            "FavoriteTeamResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Favorite team added"
+                    },
+                    "favoriteTeams": {
+                        "type": "object",
+                        "schema": {
+                            "$ref": "#/components/schemas/UpdateObject"
                         }
                     }
                 }

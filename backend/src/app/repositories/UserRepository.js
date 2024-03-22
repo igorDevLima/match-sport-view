@@ -8,6 +8,17 @@ class UserRepository {
   find(userId) {
     return User.findOne({ _id: userId }, "-password");
   }
+
+  updateFavoriteTeam(userId, teamData) {
+    return User.updateOne(
+      { _id: userId, "favorite_teams.team_id": { $exists: false } },
+      {
+        $push: {
+          favorite_teams: { team_id: teamData.id, name: teamData.name },
+        },
+      }
+    );
+  }
 }
 
 export default new UserRepository();
