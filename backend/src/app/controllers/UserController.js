@@ -52,7 +52,7 @@ class UserController {
         .json({ message: "Favorite team not added", favoriteTeams });
 
     return res
-      .status(204)
+      .status(201)
       .json({ message: "Favorite team added", favoriteTeams });
   }
 }
