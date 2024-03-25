@@ -24,11 +24,11 @@ class AuthRepository {
   }
 
   findByEmail(email) {
-    return User.findOne({ email: email });
+    return User.findOne({ email: email }).setOptions({ sanitizeFilter: true });
   }
 
   findAuthorizationToken(token) {
-    return Token.findOne({ token: token });
+    return Token.findOne({ token: token }).setOptions({ sanitizeFilter: true });
   }
 }
 

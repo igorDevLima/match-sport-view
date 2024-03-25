@@ -6,7 +6,9 @@ class UserRepository {
   }
 
   find(userId) {
-    return User.findOne({ _id: userId }, "-password");
+    return User.findOne({ _id: userId }, "-password").setOptions({
+      sanitizeFilter: true,
+    });
   }
 
   updateFavoriteTeam(userId, teamData) {
