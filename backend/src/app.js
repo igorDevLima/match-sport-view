@@ -11,10 +11,15 @@ import teamRouter from "./app/routes/TeamRoute.js";
 
 //middlewares
 import errorMiddleware from "./app/middlewares/error.js";
+import { headerConfig } from "./app/middlewares/header.js";
 
 const app = express();
 
 app.use(express.json());
+
+app.disable("x-powered-by");
+
+app.use(headerConfig);
 
 app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
