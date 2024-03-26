@@ -28,3 +28,9 @@ export class ConflictError extends ApiError {
     super(message, 409);
   }
 }
+
+export class TooManyRequestsError extends ApiError {
+  constructor(message) {
+    super(message, 429);
+  }
+}

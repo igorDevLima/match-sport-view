@@ -13,6 +13,7 @@ import teamRouter from "./app/routes/TeamRoute.js";
 //middlewares
 import errorMiddleware from "./app/middlewares/error.js";
 import { headerConfig } from "./app/middlewares/header.js";
+import { limitRequestWithIp } from "./app/middlewares/rateLimit.js";
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.disable("x-powered-by");
 app.use(headerConfig);
 
 app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+app.use(limitRequestWithIp("all", 7));
 
 app.use(authRouter, userRouter, leagueRouter, teamRouter);
 

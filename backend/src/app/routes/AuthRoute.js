@@ -6,12 +6,21 @@ import {
   registerValidateSchema,
   tokenValidateSchema,
 } from "../validateSchemas.js";
+import { limitRequestWithIp } from "../middlewares/rateLimit.js";
 
 const router = express.Router();
 
+const tems = [
+  {
+    id: 0,
+    nome: "Flamengo",
+    sigla: "Fla",
+  },
+];
+
 router.get(
   "/auth/login",
-  validateBodyRequest(loginValidateSchema),
+  [validateBodyRequest(loginValidateSchema), limitRequestWithIp("login", 6)],
   (req, res) => AuthController.index(req, res)
 );
 
