@@ -3,7 +3,7 @@ import { TooManyRequestsError } from "../helpers/api-errors.js";
 import getHeaderBearerToken from "../helpers/getHeaderBearerToken.js";
 import getUserIp from "../helpers/getUserIp.js";
 
-const limitRequest = (resource, limit = 5, getUserType) => {
+const limitRequest = (resource, limit = 5, getUserType = "ip") => {
   return async (req, res, next) => {
     let getUser;
     if (getUserType === "ip") getUser = getUserIp(req);
@@ -24,7 +24,7 @@ const limitRequest = (resource, limit = 5, getUserType) => {
 };
 
 export const limitRequestWithIp = (resource, limit) =>
-  limitRequest(resource, limit, "ip");
+  limitRequest(resource, limit);
 
 export const limitRequestWithBearerToken = (resource, limit) =>
   limitRequest(resource, limit, "token");
