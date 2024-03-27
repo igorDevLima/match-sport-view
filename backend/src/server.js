@@ -1,6 +1,6 @@
-import app from "./src/app.js";
-import connectToDatabase from "./src/app/database/connection.js";
-import { redisConnect } from "./src/app/database/redis.js";
+import app from "./app.js";
+import connectToDatabase from "./common/database/connection.js";
+import { redisConnect } from "./common/database/redis.js";
 
 const PORT = process.env.PORT || 8081;
 

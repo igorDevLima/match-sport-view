@@ -1,5 +1,5 @@
-import { NotFoundError } from "../helpers/api-errors.js";
-import FootballLeagueRepository from "../repositories/FootballLeagueRepository.js";
+import { NotFoundError } from "../../common/helpers/api-errors.js";
+import FootballLeagueRepository from "../league/LeagueRepository.js";
 
 class FootballLeagueController {
   async index(req, res) {

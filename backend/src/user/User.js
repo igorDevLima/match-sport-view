@@ -1,10 +1,8 @@
 import express from "express";
-import UserController from "../controllers/UserController.js";
-import authMiddleware from "../middlewares/auth.js";
-import { validateParamsRequest } from "../middlewares/validateRequest.js";
-import { idParamValidateSchema } from "../validateSchemas.js";
-import { validateMongoObjectId } from "../middlewares/validateMongoObjectId.js";
-import { limitRequestWithBearerToken } from "../middlewares/rateLimit.js";
+import UserController from "./UserController.js";
+import authMiddleware from "../common/middlewares/auth.js";
+import { validateMongoObjectId } from "../common/middlewares/validateMongoObjectId.js";
+import { limitRequestWithBearerToken } from "../common/middlewares/rateLimit.js";
 
 const router = express.Router();
 

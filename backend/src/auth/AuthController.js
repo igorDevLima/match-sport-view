@@ -1,8 +1,8 @@
-import AuthRepository from "../repositories/AuthRepository.js";
-import UserRepository from "../repositories/UserRepository.js";
+import AuthRepository from "./AuthRepository.js";
+import UserRepository from "../user/UserRepository.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { BadRequestError, ConflictError } from "../helpers/api-errors.js";
+import { BadRequestError, ConflictError } from "../common/helpers/api-errors.js";
 
 class AuthController {
   async index(req, res) {

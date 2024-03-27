@@ -1,5 +1,5 @@
-import { BadRequestError, NotFoundError } from "../helpers/api-errors.js";
-import FootballTeamRepository from "../repositories/FootballTeamRepository.js";
+import { BadRequestError, NotFoundError } from "../../common/helpers/api-errors.js";
+import FootballTeamRepository from "./TeamRepository.js";
 
 class FootballTeamController {
   async index(req, res) {

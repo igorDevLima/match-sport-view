@@ -1,5 +1,5 @@
-import { Token } from "../models/Token.js";
-import { User } from "../models/User.js";
+import { Token } from "./AuthModel.js";
+import { User } from "../user/UserModel.js";
 
 class AuthRepository {
   createUser(user) {

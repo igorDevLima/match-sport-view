@@ -5,15 +5,15 @@ import swaggerDocument from "../swagger.json" assert { type: "json" };
 import "express-async-errors";
 
 //routes
-import authRouter from "./app/routes/AuthRoute.js";
-import userRouter from "./app/routes/UserRoute.js";
-import leagueRouter from "./app/routes/LeagueRoute.js";
-import teamRouter from "./app/routes/TeamRoute.js";
+import authRouter from "./auth/Auth.js";
+import userRouter from "./user/User.js";
+import leagueRouter from "./football/league/League.js";
+import teamRouter from "./football/team/Team.js";
 
 //middlewares
-import errorMiddleware from "./app/middlewares/error.js";
-import { headerConfig } from "./app/middlewares/header.js";
-import { limitRequestWithIp } from "./app/middlewares/rateLimit.js";
+import errorMiddleware from "./common/middlewares/error.js";
+import { headerConfig } from "./common/middlewares/header.js";
+import { limitRequestWithIp } from "./common/middlewares/rateLimit.js";
 
 const app = express();
 

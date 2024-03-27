@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FootballApiSports } from "../helpers/api-sports.js";
+import { FootballApiSports } from "../../common/helpers/api-sports.js";
 
 class FootballTeamRepository extends FootballApiSports {
   async find(parameters) {

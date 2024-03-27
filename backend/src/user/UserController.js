@@ -1,6 +1,9 @@
-import { BadRequestError, NotFoundError } from "../helpers/api-errors.js";
-import UserRepository from "../repositories/UserRepository.js";
-import FootballTeamRepository from "../repositories/FootballTeamRepository.js";
+import {
+  BadRequestError,
+  NotFoundError,
+} from "../common/helpers/api-errors.js";
+import UserRepository from "./UserRepository.js";
+import FootballTeamRepository from "../football/team/TeamRepository.js";
 
 class UserController {
   async index(req, res) {

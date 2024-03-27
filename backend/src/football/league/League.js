@@ -1,9 +1,9 @@
 import express from "express";
-import authMiddleware from "../middlewares/auth.js";
-import FootballLeagueController from "../controllers/FootballLeagueController.js";
-import { validateParamsRequest } from "../middlewares/validateRequest.js";
-import { idParamValidateSchema } from "../validateSchemas.js";
-import { limitRequestWithBearerToken } from "../middlewares/rateLimit.js";
+import authMiddleware from "../../common/middlewares/auth.js";
+import FootballLeagueController from "./LeagueController.js";
+import { validateParamsRequest } from "../../common/middlewares/validateRequest.js";
+import { idParamValidateSchema } from "../../validateSchemas.js";
+import { limitRequestWithBearerToken } from "../../common/middlewares/rateLimit.js";
 
 const router = express.Router();
 
