@@ -20,7 +20,9 @@ app.use(express.json());
 
 app.disable("x-powered-by");
 
-app.use(headerConfig);
+const middlewares = [headerConfig, limitRequestWithIp("all", 7)];
+
+app.use(middlewares);
 
 app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
