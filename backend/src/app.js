@@ -25,9 +25,13 @@ app.use(headerConfig);
 
 app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-app.use(limitRequestWithIp("all", 7));
+app.use("/auth", authRouter);
 
-app.use(authRouter, userRouter, leagueRouter, teamRouter);
+app.use("/user", userRouter);
+
+app.use("/football/league", leagueRouter);
+
+app.use("/football/team", teamRouter);
 
 app.use(errorMiddleware);
 

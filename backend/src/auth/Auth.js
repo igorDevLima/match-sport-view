@@ -11,18 +11,18 @@ import { limitRequestWithIp } from "../common/middlewares/rateLimit.js";
 const router = express.Router();
 
 router.get(
-  "/auth/login",
+  "/login",
   [validateBodyRequest(loginValidateSchema), limitRequestWithIp("login", 6)],
   (req, res) => AuthController.index(req, res)
 );
 
 router.post(
-  "/auth/register",
+  "/register",
   validateBodyRequest(registerValidateSchema),
   (req, res) => AuthController.store(req, res)
 );
 
-router.get("/auth/me", validateBodyRequest(tokenValidateSchema), (req, res) =>
+router.get("/me", validateBodyRequest(tokenValidateSchema), (req, res) =>
   AuthController.show(req, res)
 );
 

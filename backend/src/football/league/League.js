@@ -8,13 +8,13 @@ import { limitRequestWithBearerToken } from "../../common/middlewares/rateLimit.
 const router = express.Router();
 
 router.get(
-  "/football/league",
+  "/",
   [authMiddleware, limitRequestWithBearerToken("league", 3)],
   (req, res) => FootballLeagueController.index(req, res)
 );
 
 router.get(
-  "/football/league/:id",
+  "/:id",
   [
     authMiddleware,
     validateParamsRequest(idParamValidateSchema),

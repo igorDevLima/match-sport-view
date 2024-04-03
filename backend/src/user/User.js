@@ -7,13 +7,13 @@ import { limitRequestWithBearerToken } from "../common/middlewares/rateLimit.js"
 const router = express.Router();
 
 router.get(
-  "/user",
+  "/",
   [authMiddleware, limitRequestWithBearerToken("users", 3)],
   (req, res) => UserController.index(req, res)
 );
 
 router.get(
-  "/user/:id",
+  "/:id",
   [
     authMiddleware,
     validateMongoObjectId,
@@ -23,7 +23,7 @@ router.get(
 );
 
 router.post(
-  "/user/:id/favorite-team",
+  "/:id/favorite-team",
   [
     authMiddleware,
     validateMongoObjectId,

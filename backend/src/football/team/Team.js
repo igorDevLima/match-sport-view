@@ -8,7 +8,7 @@ import { limitRequestWithBearerToken } from "../../common/middlewares/rateLimit.
 const router = express.Router();
 
 router.get(
-  "/football/team",
+  "/",
   [
     authMiddleware,
     validateQueryRequest(teamQueryValidateSchema),
