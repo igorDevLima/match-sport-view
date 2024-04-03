@@ -1,0 +1,25 @@
+version: "3.3"
+services:
+  server:
+    env_file: .env
+    build:
+      context: ./backend
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      PORT: ${PORT}
+      MONGODB_URI: ${MONGODB_URI}
+      SECRET: ${SECRET}
+      SPORT_API_SECRET: ${SPORT_API_SECRET}
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - ./backend/src:/opt/app/src
+      - ./backend/package.json:/opt/package.json
+      - ./backend/package-lock.json:/opt/package-lock.json
+      - .:/backend/src
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7.2.4-alpine
+
